@@ -1,0 +1,11 @@
+C:\Users\User\source\repos\WebApplication2\CrudProject.BLL\bin\Debug\net8.0\CrudProject.BLL.deps.json
+C:\Users\User\source\repos\WebApplication2\CrudProject.BLL\bin\Debug\net8.0\CrudProject.BLL.dll
+C:\Users\User\source\repos\WebApplication2\CrudProject.BLL\bin\Debug\net8.0\CrudProject.BLL.pdb
+C:\Users\User\source\repos\WebApplication2\CrudProject.BLL\obj\Debug\net8.0\CrudProject.BLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\WebApplication2\CrudProject.BLL\obj\Debug\net8.0\CrudProject.BLL.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\WebApplication2\CrudProject.BLL\obj\Debug\net8.0\CrudProject.BLL.AssemblyInfo.cs
+C:\Users\User\source\repos\WebApplication2\CrudProject.BLL\obj\Debug\net8.0\CrudProject.BLL.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\WebApplication2\CrudProject.BLL\obj\Debug\net8.0\CrudProject.BLL.dll
+C:\Users\User\source\repos\WebApplication2\CrudProject.BLL\obj\Debug\net8.0\refint\CrudProject.BLL.dll
+C:\Users\User\source\repos\WebApplication2\CrudProject.BLL\obj\Debug\net8.0\CrudProject.BLL.pdb
+C:\Users\User\source\repos\WebApplication2\CrudProject.BLL\obj\Debug\net8.0\ref\CrudProject.BLL.dll

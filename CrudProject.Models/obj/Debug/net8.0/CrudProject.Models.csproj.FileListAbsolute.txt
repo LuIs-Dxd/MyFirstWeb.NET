@@ -1,0 +1,11 @@
+C:\Users\User\source\repos\WebApplication2\CrudProject.Models\bin\Debug\net8.0\CrudProject.Models.deps.json
+C:\Users\User\source\repos\WebApplication2\CrudProject.Models\bin\Debug\net8.0\CrudProject.Models.dll
+C:\Users\User\source\repos\WebApplication2\CrudProject.Models\bin\Debug\net8.0\CrudProject.Models.pdb
+C:\Users\User\source\repos\WebApplication2\CrudProject.Models\obj\Debug\net8.0\CrudProject.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\WebApplication2\CrudProject.Models\obj\Debug\net8.0\CrudProject.Models.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\WebApplication2\CrudProject.Models\obj\Debug\net8.0\CrudProject.Models.AssemblyInfo.cs
+C:\Users\User\source\repos\WebApplication2\CrudProject.Models\obj\Debug\net8.0\CrudProject.Models.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\WebApplication2\CrudProject.Models\obj\Debug\net8.0\CrudProject.Models.dll
+C:\Users\User\source\repos\WebApplication2\CrudProject.Models\obj\Debug\net8.0\refint\CrudProject.Models.dll
+C:\Users\User\source\repos\WebApplication2\CrudProject.Models\obj\Debug\net8.0\CrudProject.Models.pdb
+C:\Users\User\source\repos\WebApplication2\CrudProject.Models\obj\Debug\net8.0\ref\CrudProject.Models.dll

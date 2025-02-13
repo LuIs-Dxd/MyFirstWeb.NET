@@ -1,88 +1,133 @@
-﻿<%@ Page Title="Dashboard" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="WebApplication2.Dashboard" %>
+﻿
+<%@ Page Title="Dashboard" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs"  Inherits="WebApplication2.Dashboard" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="wtext" runat="server">
     <!-- Enlace a Bootstrap desde CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link href="../../Content/DashboardStyle.css" rel="stylesheet" />
 
-    <div class="container mt-4">
-        <h2 class="mb-4">Dashboard</h2>
-        
-        <!-- GridView -->
+    <!-- Agregar producto button -->
+    <div class="container mt-2">
+        <div class="row align-items-center mb-0">
+            <!-- Columna izquierda: Título -->
+            <div class="col-md-4">
+                <h2 class="mb-0">Dashboard</h2>
+            </div>
+
+            <!-- Columna central: Input de búsqueda -->
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-success" type="submit">Buscar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna derecha: Botón Agregar Producto -->
+            <div class="col-md-4 text-right">
+                <asp:Button ID="btnAddNew" runat="server" Text="Agregar Producto" CssClass="btn btn-outline-primary" OnClick="btnAddNew_Click" />
+            </div>
+        </div>
+    </div>
  <asp:GridView ID="gvDashboard" runat="server"
     CssClass="table table-striped table-hover"
-    AutoGenerateColumns="False" DataKeyNames="id"
+    AutoGenerateColumns="False" 
+    DataKeyNames="id"
+    AllowSorting="true"
+    AllowPaging="true"
+    PageSize="10"
     OnRowEditing="gvDashboard_RowEditing"
     OnRowUpdating="gvDashboard_RowUpdating"
     OnRowCancelingEdit="gvDashboard_RowCancelingEdit"
-    OnRowDeleting="gvDashboard_RowDeleting">
+    OnRowDeleting="gvDashboard_RowDeleting"
+    OnSorting="gvDashboard_Sorting">
     <Columns>
-        <asp:BoundField DataField="id" HeaderText="ID" ReadOnly="True" />
-        <asp:TemplateField HeaderText="Nombre">
+        <asp:BoundField DataField="id" HeaderText="ID" ReadOnly="True" SortExpression="id" />
+        <asp:TemplateField HeaderText="Nombre" SortExpression="name">
             <ItemTemplate>
-                <%# Eval("name") %>
+                <%# Eval("Name") %>
             </ItemTemplate>
             <EditItemTemplate>
-                <asp:TextBox ID="txtNombre" runat="server" Text='<%# Bind("name") %>'></asp:TextBox>
+                <asp:TextBox ID="txtNombre" runat="server" Text='<%# Bind("Name") %>'></asp:TextBox>
             </EditItemTemplate>
         </asp:TemplateField>
-        <asp:TemplateField HeaderText="Stock">
+        <asp:TemplateField HeaderText="Stock" SortExpression="stock">
             <ItemTemplate>
-                <%# Eval("stock") %>
+                <%# Eval("Stock") %>
             </ItemTemplate>
             <EditItemTemplate>
-                <asp:TextBox ID="txtStock" runat="server" Text='<%# Bind("stock") %>'></asp:TextBox>
+                <asp:TextBox ID="txtStock" runat="server" Text='<%# Bind("Stock") %>'></asp:TextBox>
             </EditItemTemplate>
         </asp:TemplateField>
-        <asp:TemplateField HeaderText="Precio">
+        <asp:TemplateField HeaderText="Precio" SortExpression="price">
             <ItemTemplate>
-                <%# Eval("price", "{0:C}") %>
+                <%# Eval("Price", "{0:C}") %>
             </ItemTemplate>
             <EditItemTemplate>
-                <asp:TextBox ID="txtPrecio" runat="server" Text='<%# Bind("price") %>'></asp:TextBox>
+                <asp:TextBox ID="txtPrecio" runat="server" Text='<%# Bind("Price") %>'></asp:TextBox>
             </EditItemTemplate>
         </asp:TemplateField>
-        <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
+        <asp:CommandField ShowEditButton="true" ShowDeleteButton="true" />
     </Columns>
 </asp:GridView>
 
+<%--
 
-        <!-- Botón para agregar un nuevo registro -->
-        <asp:Button ID="btnAddNew" runat="server" Text="Agregar Producto" CssClass="btn btn-primary mt-3" OnClick="btnAddNew_Click" />
-    </div>
-<!-- Modal para agregar producto utilizando Bootstrap -->
-<asp:Panel ID="pnlAddProduct" runat="server" CssClass="modal fade" Role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Agregar Nuevo Producto</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Grupo de controles para Nombre -->
-                <div class="form-group">
-                    <asp:Label ID="lblNombre" runat="server" Text="Nombre:" CssClass="control-label"></asp:Label>
-                    <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control"></asp:TextBox>
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+        --%>
+    <!-- Modal para agregar producto utilizando Bootstrap -->
+    <asp:Panel ID="pnlAddProduct" runat="server" CssClass="modal fade" Role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar Nuevo Producto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <!-- Grupo de controles para Precio -->
-                <div class="form-group">
-                    <asp:Label ID="lblPrecio" runat="server" Text="Precio:" CssClass="control-label"></asp:Label>
-                    <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control"></asp:TextBox>
+                <div class="modal-body">
+                    <!-- Grupo de controles para Nombre -->
+                    <div class="form-group">
+                        <asp:Label ID="lblNombre" runat="server" Text="Nombre:" CssClass="control-label"></asp:Label>
+                        <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                    <!-- Grupo de controles para Precio -->
+                    <div class="form-group">
+                        <asp:Label ID="lblPrecio" runat="server" Text="Precio:" CssClass="control-label"></asp:Label>
+                        <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                    <!-- grupo de controles de btnguardar -->
+                    <div class="form-group">
+                        <asp:Label ID="lblStock" runat="server" Text="Stock:" CssClass="control-label"></asp:Label>
+                        <asp:TextBox ID="txtStock" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
                 </div>
-<!-- grupo de controles de btnguardar -->
-                <div class="form-group">
-                    <asp:Label ID="lblStock" runat="server" Text="Stock:" CssClass="control-label"></asp:Label>
-                    <asp:TextBox ID="txtStock" runat="server" CssClass="form-control"></asp:TextBox>
+                <div class="modal-footer">
+                    <asp:Button ID="btnSaveProduct" runat="server" Text="Guardar" CssClass="btn btn-success" OnClick="btnSaveProduct_Click" />
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CssClass="btn btn-secondary" OnClick="btnCancel_Click" />
                 </div>
             </div>
-            <div class="modal-footer">
-                <asp:Button ID="btnSaveProduct" runat="server" Text="Guardar" CssClass="btn btn-success" OnClick="btnSaveProduct_Click" />
-                <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CssClass="btn btn-secondary" OnClick="btnCancel_Click" />
-            </div>
-        </div>a
-    </div>
-</asp:Panel>
+        </div>
+    </asp:Panel>
 
 
 
@@ -93,9 +138,10 @@
     <!-- Script para mostrar el modal si pnlAddProduct.Visible es true -->
     <script>
         $(document).ready(function () {
-        <% if (pnlAddProduct.Visible) { %>
-        $('#<%= pnlAddProduct.ClientID %>').modal('show');
+        <% if (pnlAddProduct.Visible)
+        { %>
+            $('#<%= pnlAddProduct.ClientID %>').modal('show');
         <% } %>
-    });
+        });
     </script>
 </asp:Content>

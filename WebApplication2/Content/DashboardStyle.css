@@ -10,3 +10,13 @@
     box-shadow: 0px 0px 10px #aaa;
 }
 
+
+.pagination .page-item {
+    margin: 0 2px !important; /* Usa !important para forzar el estilo */
+}
+
+.pagination .page-link {
+    padding: 5px 10px !important; /* Ajusta el relleno */
+    font-size: 14px !important; /* Reduce el tamaño del texto */
+}
+

@@ -299,6 +299,20 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CrudProject.BLL\CrudProject.BLL.csproj">
+      <Project>{bdc46183-b5d6-4176-b0e7-4d12b7682053}</Project>
+      <Name>CrudProject.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CrudProject.DAL\CrudProject.DAL.csproj">
+      <Project>{95f2dc4e-9617-41b5-be96-4c48087c4bdb}</Project>
+      <Name>CrudProject.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CrudProject.Models\CrudProject.Models.csproj">
+      <Project>{300ec1ff-953b-4018-be9d-da694de01481}</Project>
+      <Name>CrudProject.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

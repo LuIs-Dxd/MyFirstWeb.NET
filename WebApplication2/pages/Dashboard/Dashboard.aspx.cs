@@ -23,12 +23,18 @@ namespace WebApplication2
             }
         }
 
-        private void BindGrid()
+        private void BindGrid(string searchText = "")
         {
             try
             {
-                // Llama al método de la BLL que obtiene la lista de productos.
                 List<Product> products = _productService.GetProducts();
+
+                // Filtrar si hay texto de búsqueda
+                if (!string.IsNullOrEmpty(searchText))
+                {
+                    products = products.Where(p => p.Name.ToLower().Contains(searchText)).ToList();
+                }
+
                 gvDashboard.DataSource = products;
                 gvDashboard.DataBind();
             }
@@ -38,10 +44,11 @@ namespace WebApplication2
             }
         }
 
+
         protected void gvDashboard_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvDashboard.PageIndex = e.NewPageIndex;
-            BindGrid();
+            BindGrid();     
         }
 
         
@@ -55,6 +62,11 @@ namespace WebApplication2
             return 0;
         }
 
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchText = txtSearch.Text.Trim().ToLower();
+            BindGrid(searchText);
+        }
 
         protected void btnAddNew_Click(object sender, EventArgs e)
         {

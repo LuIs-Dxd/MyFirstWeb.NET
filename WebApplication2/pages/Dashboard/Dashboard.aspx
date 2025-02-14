@@ -17,10 +17,10 @@
             <!-- Columna central: Input de búsqueda -->
             <div class="col-md-4">
                 <div class="input-group">
-                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-success" type="submit">Buscar</button>
-                    </div>
+                 <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" placeholder="Search" />
+                <div class="input-group-append">
+                    <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-outline-success" Text="Buscar" OnClick="btnSearch_Click" />
+                </div>
                 </div>
             </div>
 
@@ -33,10 +33,13 @@
  <asp:GridView ID="gvDashboard" runat="server"
     CssClass="table table-striped table-hover"
     AutoGenerateColumns="False" 
+    emptydatatext="No data available." 
+    BorderStyle="Ridge"
     DataKeyNames="id"
     AllowSorting="true"
     AllowPaging="true"
-    PageSize="10"
+    PageSize="12"
+    OnPageIndexChanging="gvDashboard_PageIndexChanging"
     OnRowEditing="gvDashboard_RowEditing"
     OnRowUpdating="gvDashboard_RowUpdating"
     OnRowCancelingEdit="gvDashboard_RowCancelingEdit"
@@ -73,7 +76,6 @@
 </asp:GridView>
 
 <%--
-
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             <li class="page-item">

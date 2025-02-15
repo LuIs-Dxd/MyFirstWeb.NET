@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using CrudProject.BLL;       // Asegúrate de tener la referencia al proyecto BLL
+using CrudProject.BLL;       
 using CrudProject.Models;    // Para la clase Product
 using System.Linq;
 
@@ -22,7 +22,7 @@ namespace WebApplication2
 
             }
         }
-
+        //en el caso de que existan valores de "sort" en el viewState, este se aplicara a los productos antes de enlazarlos con el viewGrid.
         private void BindGrid(string searchText = "")
         {
             try
@@ -35,6 +35,35 @@ namespace WebApplication2
                     products = products.Where(p => p.Name.ToLower().Contains(searchText)).ToList();
                 }
 
+                // Si se ha definido un ordenamiento, aplícalo
+                if (ViewState["SortExpression"] != null && ViewState["SortDirection"] != null)
+                {
+                    string sortExpression = ViewState["SortExpression"].ToString();
+                    string sortDirection = ViewState["SortDirection"].ToString();
+
+                    switch (sortExpression)
+                    {
+                        case "id":
+                            products = sortDirection == "ASC" ? products.OrderBy(p => p.Id).ToList()
+                                                              : products.OrderByDescending(p => p.Id).ToList();
+                            break;
+                        case "name":
+                            products = sortDirection == "ASC" ? products.OrderBy(p => p.Name).ToList()
+                                                              : products.OrderByDescending(p => p.Name).ToList();
+                            break;
+                        case "stock":
+                            products = sortDirection == "ASC" ? products.OrderBy(p => p.Stock).ToList()
+                                                              : products.OrderByDescending(p => p.Stock).ToList();
+                            break;
+                        case "price":
+                            products = sortDirection == "ASC" ? products.OrderBy(p => p.Price).ToList()
+                                                              : products.OrderByDescending(p => p.Price).ToList();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
                 gvDashboard.DataSource = products;
                 gvDashboard.DataBind();
             }
@@ -43,6 +72,7 @@ namespace WebApplication2
                 Response.Write($"<script>alert('Error al cargar la tabla: {ex.Message}');</script>");
             }
         }
+
 
 
         protected void gvDashboard_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -61,6 +91,10 @@ namespace WebApplication2
             }
             return 0;
         }
+        protected void btnPrint_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ReportViewer.aspx");
+        }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -70,8 +104,11 @@ namespace WebApplication2
 
         protected void btnAddNew_Click(object sender, EventArgs e)
         {
-            pnlAddProduct.Visible = true;
+            string script = "$('#" + pnlAddProduct.ClientID + "').modal('show');";
+            ScriptManager.RegisterStartupScript(this, GetType(), "ShowModal", script, true);
         }
+
+
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
@@ -208,7 +245,9 @@ namespace WebApplication2
         }
         protected void gvDashboard_Sorting(object sender, GridViewSortEventArgs e)
         {
-            // Obtén la lista de productos desde tu servicio.
+            // Guarda el índice de página actual
+            int currentPage = gvDashboard.PageIndex;
+
             List<Product> products = _productService.GetProducts();
             if (products != null && products.Count > 0)
             {
@@ -242,11 +281,13 @@ namespace WebApplication2
                         break;
                 }
 
-                // Vuelve a enlazar la lista ordenada al GridView.
+                // Reasigna el índice de página antes de enlazar
+                gvDashboard.PageIndex = currentPage;
                 gvDashboard.DataSource = products;
                 gvDashboard.DataBind();
             }
         }
+
 
 
         private string GetSortDirection(string column)

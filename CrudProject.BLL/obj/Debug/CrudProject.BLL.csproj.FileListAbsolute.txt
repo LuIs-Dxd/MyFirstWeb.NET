@@ -1,3 +1,4 @@
+C:\Users\Usuario\source\repos\MyFirstWeb.NET\CrudProject.BLL\bin\Debug\CrudProject.BLL.dll.config
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\CrudProject.BLL\bin\Debug\CrudProject.BLL.dll
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\CrudProject.BLL\bin\Debug\CrudProject.BLL.pdb
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\CrudProject.BLL\bin\Debug\CrudProject.DAL.dll

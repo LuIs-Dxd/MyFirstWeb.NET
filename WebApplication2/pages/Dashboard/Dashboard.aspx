@@ -1,13 +1,29 @@
 ﻿
 <%@ Page Title="Dashboard" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs"  Inherits="WebApplication2.Dashboard" %>
 
+<asp:Content ID="sidebarPlaceholder" ContentPlaceHolderID="sidebarContent" runat="server">
+    <li class="nav-item">
+        <a class="nav-link text-white" href="Dashboard.aspx"><i class="bi bi-house-door"></i> Dashboard</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-white" href="#"><i class="bi bi-box-seam"></i> Inventory</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-white" href="#"><i class="bi bi-clipboard-data"></i> Reports</a>
+    </li>
+</asp:Content>
+
 <asp:Content ID="BodyContent" ContentPlaceHolderID="wtext" runat="server">
     <!-- Enlace a Bootstrap desde CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <link href="../../Content/DashboardStyle.css" rel="stylesheet" />
 
+
+
     <!-- Agregar producto button -->
     <div class="container mt-2">
+
         <div class="row align-items-center mb-0">
             <!-- Columna izquierda: Título -->
             <div class="col-md-4">
@@ -30,6 +46,7 @@
             </div>
         </div>
     </div>
+
  <asp:GridView ID="gvDashboard" runat="server"
     CssClass="table table-striped table-hover"
     AutoGenerateColumns="False" 
@@ -96,6 +113,7 @@
         </ul>
     </nav>
         --%>
+
     <!-- Modal para agregar producto utilizando Bootstrap -->
     <asp:Panel ID="pnlAddProduct" runat="server" CssClass="modal fade" Role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -106,6 +124,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <!-- Columna derecha: Botón Agregar Producto + Botón Imprimir -->
+
                 <div class="modal-body">
                     <!-- Grupo de controles para Nombre -->
                     <div class="form-group">
@@ -125,7 +145,9 @@
                 </div>
                 <div class="modal-footer">
                     <asp:Button ID="btnSaveProduct" runat="server" Text="Guardar" CssClass="btn btn-success" OnClick="btnSaveProduct_Click" />
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CssClass="btn btn-secondary" OnClick="btnCancel_Click" />
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CssClass="btn btn-secondary"
+    OnClientClick="$('#pnlAddProduct').modal('hide'); return false;" />
+
                 </div>
             </div>
         </div>
@@ -136,14 +158,11 @@
     <!-- Scripts de jQuery y Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Bootstrap  -->
 
-    <!-- Script para mostrar el modal si pnlAddProduct.Visible es true -->
-    <script>
-        $(document).ready(function () {
-        <% if (pnlAddProduct.Visible)
-        { %>
-            $('#<%= pnlAddProduct.ClientID %>').modal('show');
-        <% } %>
-        });
-    </script>
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/Scripts/bootstrap.js") %>
+    </asp:PlaceHolder>
+
 </asp:Content>

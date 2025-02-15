@@ -1,6 +1,5 @@
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\CrudProject.Models\bin\Debug\CrudProject.Models.dll
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\CrudProject.Models\bin\Debug\CrudProject.Models.pdb
-C:\Users\Usuario\source\repos\MyFirstWeb.NET\CrudProject.Models\obj\Debug\CrudProject.Models.csproj.AssemblyReference.cache
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\CrudProject.Models\obj\Debug\CrudProject.Models.csproj.CoreCompileInputs.cache
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\CrudProject.Models\obj\Debug\CrudProject.Models.dll
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\CrudProject.Models\obj\Debug\CrudProject.Models.pdb

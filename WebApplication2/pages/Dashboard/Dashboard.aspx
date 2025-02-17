@@ -33,17 +33,22 @@
             <!-- Columna central: Input de búsqueda -->
             <div class="col-md-4">
                 <div class="input-group">
-                 <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" placeholder="Search" />
-                <div class="input-group-append">
-                    <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-outline-success" Text="Buscar" OnClick="btnSearch_Click" />
-                </div>
+                    <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" placeholder="Search" />
+                    <div class="input-group-append">
+                        <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-outline-success" Text="Buscar" OnClick="btnSearch_Click" />
+                    </div>
                 </div>
             </div>
 
-            <!-- Columna derecha: Botón Agregar Producto -->
+            <!-- Columna derecha: Botón Agregar/imprimir Producto -->
             <div class="col-md-4 text-right">
+                <button id="btnPrint" runat="server" class="btn btn-outline-secondary mr-2" onserverclick="btnPrint_Click">
+                   Imprimir <i class="bi bi-printer"></i>
+   
+                </button>
                 <asp:Button ID="btnAddNew" runat="server" Text="Agregar Producto" CssClass="btn btn-outline-primary" OnClick="btnAddNew_Click" />
             </div>
+
         </div>
     </div>
 
@@ -124,7 +129,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <!-- Columna derecha: Botón Agregar Producto + Botón Imprimir -->
+
 
                 <div class="modal-body">
                     <!-- Grupo de controles para Nombre -->

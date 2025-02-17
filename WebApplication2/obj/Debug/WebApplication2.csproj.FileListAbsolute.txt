@@ -102,8 +102,6 @@ C:\Users\User\source\repos\WebApplication2\WebApplication2\bin\System.Memory.xml
 C:\Users\User\source\repos\WebApplication2\WebApplication2\bin\System.Numerics.Vectors.xml
 C:\Users\User\source\repos\WebApplication2\WebApplication2\bin\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\User\source\repos\WebApplication2\WebApplication2\bin\System.Threading.Tasks.Extensions.xml
-C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\obj\Debug\WebApplication2.csproj.AssemblyReference.cache
-C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\obj\Debug\WebApplication2.csproj.CoreCompileInputs.cache
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\WebApplication2.dll.config
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\WebApplication2.dll
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\WebApplication2.pdb
@@ -228,6 +226,8 @@ C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\System.Runtime.
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\System.Threading.Tasks.Extensions.xml
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\System.Web.Optimization.xml
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\Microsoft.AspNet.FriendlyUrls.xml
+C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\obj\Debug\WebApplication2.csproj.AssemblyReference.cache
+C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\obj\Debug\WebApplication2.csproj.CoreCompileInputs.cache
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\obj\Debug\WebApplication2.csproj.CopyComplete
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\obj\Debug\WebApplication2.dll
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\obj\Debug\WebApplication2.pdb

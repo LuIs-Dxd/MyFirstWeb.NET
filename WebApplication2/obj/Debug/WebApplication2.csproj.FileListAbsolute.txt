@@ -160,9 +160,11 @@ C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\CrudProject.BLL
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\CrudProject.DAL.dll
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\CrudProject.Models.dll
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\CrystalDecisions.Data.AdoDotNetInterop.dll
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\CrystalDecisions.ReportSource.dll
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\CrystalDecisions.Shared.dll
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\CrystalDecisions.Web.dll
+C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\CrystalDecisions.Windows.Forms.dll
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\Google.Protobuf.dll
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\K4os.Compression.LZ4.dll
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\K4os.Compression.LZ4.Streams.dll
@@ -227,6 +229,8 @@ C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\System.Threadin
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\System.Web.Optimization.xml
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\bin\Microsoft.AspNet.FriendlyUrls.xml
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\obj\Debug\WebApplication2.csproj.AssemblyReference.cache
+C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\obj\Debug\WebApplication2.pages.ReportViewer.CrystalReport1.resources
+C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\obj\Debug\WebApplication2.csproj.GenerateResource.cache
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\obj\Debug\WebApplication2.csproj.CoreCompileInputs.cache
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\obj\Debug\WebApplication2.csproj.CopyComplete
 C:\Users\Usuario\source\repos\MyFirstWeb.NET\WebApplication2\obj\Debug\WebApplication2.dll

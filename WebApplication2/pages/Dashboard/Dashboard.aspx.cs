@@ -93,7 +93,7 @@ namespace WebApplication2
         }
         protected void btnPrint_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ReportViewer.aspx");
+            Response.Redirect("~/pages/Reports/ReportViewer.aspx");
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -108,7 +108,32 @@ namespace WebApplication2
             ScriptManager.RegisterStartupScript(this, GetType(), "ShowModal", script, true);
         }
 
+        protected void btnConfirmDeletion_Click(object sender, EventArgs e)
+        {
+            // Obtén el ID del producto del HiddenField
+            int productId;
+            if (int.TryParse(hdnProductId.Value, out productId))
+            {
+                try
+                {
+                    // Llama al método de la BLL para eliminar el producto
+                    _productService.DeleteProduct(productId);
+                }
+                catch (Exception ex)
+                {
+                    // Maneja el error según corresponda
+                    Response.Write($"<script>alert('Error al eliminar el producto: {ex.Message}');</script>");
+                    return;
+                }
+            }
 
+            // Vuelve a cargar el grid
+            BindGrid();
+
+            // Oculta el modal (opcional, ya que se cerrará con JS)
+            // Puedes agregar un script para cerrarlo:
+            ScriptManager.RegisterStartupScript(this, GetType(), "HideModal", "$('#" + pnlConfirmation.ClientID + "').modal('hide');", true);
+        }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {

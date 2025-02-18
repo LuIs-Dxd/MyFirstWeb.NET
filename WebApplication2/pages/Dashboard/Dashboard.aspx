@@ -1,15 +1,14 @@
-﻿
-<%@ Page Title="Dashboard" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs"  Inherits="WebApplication2.Dashboard" %>
+﻿<%@ Page Title="Dashboard" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="WebApplication2.Dashboard" %>
 
 <asp:Content ID="sidebarPlaceholder" ContentPlaceHolderID="sidebarContent" runat="server">
     <li class="nav-item">
-        <a class="nav-link text-white" href="Dashboard.aspx"><i class="bi bi-house-door"></i> Dashboard</a>
+        <a class="nav-link text-white" href="Dashboard.aspx"><i class="bi bi-house-door"></i>Dashboard</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-white" href="#"><i class="bi bi-box-seam"></i> Inventory</a>
+        <a class="nav-link text-white" href="#"><i class="bi bi-box-seam"></i>Inventory</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-white" href="#"><i class="bi bi-clipboard-data"></i> Reports</a>
+        <a class="nav-link text-white" href="#"><i class="bi bi-clipboard-data"></i>Reports</a>
     </li>
 </asp:Content>
 
@@ -43,61 +42,82 @@
             <!-- Columna derecha: Botón Agregar/imprimir Producto -->
             <div class="col-md-4 text-right">
                 <button id="btnPrint" runat="server" class="btn btn-outline-secondary mr-2" onserverclick="btnPrint_Click">
-                   Imprimir <i class="bi bi-printer"></i>
-   
+                    Imprimir <i class="bi bi-printer"></i>
+
                 </button>
                 <asp:Button ID="btnAddNew" runat="server" Text="Agregar Producto" CssClass="btn btn-outline-primary" OnClick="btnAddNew_Click" />
             </div>
 
         </div>
     </div>
+    <!-- GridView Dashboard -->
+    <asp:GridView ID="gvDashboard" runat="server"
+        CssClass="table table-striped table-hover"
+        AutoGenerateColumns="False"
+        EmptyDataText="No data available."
+        BorderStyle="Ridge"
+        DataKeyNames="id"
+        AllowSorting="true"
+        AllowPaging="true"
+        PageSize="12"
+        OnPageIndexChanging="gvDashboard_PageIndexChanging"
+        OnRowEditing="gvDashboard_RowEditing"
+        OnRowUpdating="gvDashboard_RowUpdating"
+        OnRowCancelingEdit="gvDashboard_RowCancelingEdit"
+        OnRowDeleting="gvDashboard_RowDeleting"
+        OnSorting="gvDashboard_Sorting">
+        <Columns>
+            <asp:BoundField DataField="id" HeaderText="ID" ReadOnly="True" SortExpression="id" />
+            <asp:TemplateField HeaderText="Nombre" SortExpression="name">
+                <ItemTemplate>
+                    <%# Eval("Name") %>
+                </ItemTemplate>
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtNombre" runat="server" Text='<%# Bind("Name") %>'></asp:TextBox>
+                </EditItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Stock" SortExpression="stock">
+                <ItemTemplate>
+                    <%# Eval("Stock") %>
+                </ItemTemplate>
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtStock" runat="server" Text='<%# Bind("Stock") %>'></asp:TextBox>
+                </EditItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Precio" SortExpression="price">
+                <ItemTemplate>
+                    <%# Eval("Price", "{0:C}") %>
+                </ItemTemplate>
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtPrecio" runat="server" Text='<%# Bind("Price") %>'></asp:TextBox>
+                </EditItemTemplate>
+            </asp:TemplateField>
+            <asp:CommandField ShowEditButton="false" ShowDeleteButton="false" />
+            <asp:TemplateField HeaderText="Acciones">
+                <ItemTemplate>
+                    <!-- Botón para editar -->
+                    <asp:LinkButton ID="btnEdit" runat="server" CommandName="Edit" Text="Editar" CssClass="btn btn-outline-info" />
+                    &nbsp;|&nbsp;
+       
+                    <!-- Botón para eliminar: pasa el ID y el nombre -->
+                    <asp:LinkButton ID="btnDelete" runat="server" Text="Eliminar"
+                        OnClientClick='<%# "confirmDelete(" + Eval("id") + ", \"" + Eval("Name") + "\"); return false;" %>'
+                        CssClass="btn btn-outline-danger" />
+                </ItemTemplate>
+                <EditItemTemplate>
+                    <!-- Botones de actualización y cancelación en modo edición -->
+                    <asp:LinkButton ID="btnUpdate" runat="server" CommandName="Update" Text="Actualizar" CssClass="btn btn-warning" />
+                    &nbsp;|&nbsp;
+       
+                    <asp:LinkButton ID="btnCancelEdit" runat="server" CommandName="Cancel" Text="Cancelar" CssClass="btn btn-outline-primary" />
+                </EditItemTemplate>
+            </asp:TemplateField>
 
- <asp:GridView ID="gvDashboard" runat="server"
-    CssClass="table table-striped table-hover"
-    AutoGenerateColumns="False" 
-    emptydatatext="No data available." 
-    BorderStyle="Ridge"
-    DataKeyNames="id"
-    AllowSorting="true"
-    AllowPaging="true"
-    PageSize="12"
-    OnPageIndexChanging="gvDashboard_PageIndexChanging"
-    OnRowEditing="gvDashboard_RowEditing"
-    OnRowUpdating="gvDashboard_RowUpdating"
-    OnRowCancelingEdit="gvDashboard_RowCancelingEdit"
-    OnRowDeleting="gvDashboard_RowDeleting"
-    OnSorting="gvDashboard_Sorting">
-    <Columns>
-        <asp:BoundField DataField="id" HeaderText="ID" ReadOnly="True" SortExpression="id" />
-        <asp:TemplateField HeaderText="Nombre" SortExpression="name">
-            <ItemTemplate>
-                <%# Eval("Name") %>
-            </ItemTemplate>
-            <EditItemTemplate>
-                <asp:TextBox ID="txtNombre" runat="server" Text='<%# Bind("Name") %>'></asp:TextBox>
-            </EditItemTemplate>
-        </asp:TemplateField>
-        <asp:TemplateField HeaderText="Stock" SortExpression="stock">
-            <ItemTemplate>
-                <%# Eval("Stock") %>
-            </ItemTemplate>
-            <EditItemTemplate>
-                <asp:TextBox ID="txtStock" runat="server" Text='<%# Bind("Stock") %>'></asp:TextBox>
-            </EditItemTemplate>
-        </asp:TemplateField>
-        <asp:TemplateField HeaderText="Precio" SortExpression="price">
-            <ItemTemplate>
-                <%# Eval("Price", "{0:C}") %>
-            </ItemTemplate>
-            <EditItemTemplate>
-                <asp:TextBox ID="txtPrecio" runat="server" Text='<%# Bind("Price") %>'></asp:TextBox>
-            </EditItemTemplate>
-        </asp:TemplateField>
-        <asp:CommandField ShowEditButton="true" ShowDeleteButton="true" />
-    </Columns>
-</asp:GridView>
 
-<%--
+        </Columns>
+    </asp:GridView>
+    <asp:HiddenField ID="hdnProductId" runat="server" />
+    <%--
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             <li class="page-item">
@@ -117,7 +137,7 @@
             </li>
         </ul>
     </nav>
-        --%>
+    --%>
 
     <!-- Modal para agregar producto utilizando Bootstrap -->
     <asp:Panel ID="pnlAddProduct" runat="server" CssClass="modal fade" Role="dialog">
@@ -151,8 +171,35 @@
                 <div class="modal-footer">
                     <asp:Button ID="btnSaveProduct" runat="server" Text="Guardar" CssClass="btn btn-success" OnClick="btnSaveProduct_Click" />
                     <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CssClass="btn btn-secondary"
-    OnClientClick="$('#pnlAddProduct').modal('hide'); return false;" />
+                        OnClientClick="$('#pnlAddProduct').modal('hide'); return false;" />
 
+                </div>
+            </div>
+        </div>
+    </asp:Panel>
+
+   
+    <!-- Confirmation panel -->
+    <asp:Panel ID="pnlConfirmation" runat="server" CssClass="modal fade" Role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">¿Estás seguro?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="pConfirmationMessage">¿Deseas eliminar este producto?</p>
+                </div>
+                <div class="modal-footer">
+                    <!-- Botón para confirmar la eliminación -->
+                    <asp:Button ID="btnConfirmDeletion" runat="server" Text="Sí, eliminar"
+                        CssClass="btn btn-danger" OnClick="btnConfirmDeletion_Click" />
+                    <!-- Botón para cancelar -->
+                    <asp:Button ID="btnCancelDeletion" runat="server" Text="Cancelar"
+                        CssClass="btn btn-secondary"
+                        OnClientClick="$('#<%= pnlConfirmation.ClientID %>').modal('hide'); return false;" />
                 </div>
             </div>
         </div>
@@ -163,11 +210,22 @@
     <!-- Scripts de jQuery y Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <!-- Bootstrap  -->
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/Scripts/bootstrap.js") %>
     </asp:PlaceHolder>
+    <!--  Modal de confirmacion -->
+    <script type="text/javascript">
+        function confirmDelete(productId, productName) {
+            // Asigna el ID del producto al HiddenField
+            document.getElementById('<%= hdnProductId.ClientID %>').value = productId;
+                // Actualiza el mensaje de confirmación con el nombre del producto
+                document.getElementById('pConfirmationMessage').innerText = "¿Deseas eliminar el producto '" + productName + "'?";
+                // Abre el modal de confirmación
+                $('#<%= pnlConfirmation.ClientID %>').modal('show');
+        }
+        </script>
 
 </asp:Content>

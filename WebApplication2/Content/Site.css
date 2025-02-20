@@ -69,3 +69,6 @@ footer {
     color: #000000;
 }
 
+.filter-blue {
+    filter: invert(22%) sepia(100%) saturate(7494%) hue-rotate(195deg) brightness(97%) contrast(105%);
+}

@@ -21,7 +21,6 @@ namespace WebApplication2
                 ExportReportToPDF();
             }
         }
-
         private void ExportReportToPDF()
         {
             // Crear una instancia del ReportDocument
@@ -31,10 +30,19 @@ namespace WebApplication2
             string reportPath = Server.MapPath("~/pages/ReportViewer/CrystalReport1.rpt");
             report.Load(reportPath);
 
+            // Recuperar el criterio de búsqueda desde la query string
+            string searchText = Request.QueryString["search"];
+
             // Obtener la lista de productos desde la capa de negocio
             List<Product> products = _productService.GetProducts();
 
-            // Crear un DataSet y llenarlo con los datos obtenidos
+            // Si se especificó un criterio, filtra la lista
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                products = products.FindAll(p => p.Name.ToLower().Contains(searchText.ToLower()));
+            }
+
+            // Crear un DataSet y llenarlo con los datos filtrados
             ProductDataSet ds = new ProductDataSet();
             foreach (var product in products)
             {
@@ -54,11 +62,6 @@ namespace WebApplication2
             Stream pdfStream = report.ExportToStream(ExportFormatType.PortableDocFormat);
             pdfStream.Seek(0, SeekOrigin.Begin);
 
-
-            //            Stream pdfStream = report.ExportToStream(ExportFormatType.WordForWindows);
-            //              pdfStream.Seek(0, SeekOrigin.Begin);
-
-
             // Configurar la respuesta HTTP para enviar el PDF
             Response.Clear();
             Response.Buffer = true;
@@ -68,6 +71,54 @@ namespace WebApplication2
             Response.BinaryWrite(ReadStreamFully(pdfStream));
             Response.End();
         }
+
+
+        //private void ExportReportToPDF()
+        //{
+        //    // Crear una instancia del ReportDocument
+        //    ReportDocument report = new ReportDocument();
+
+        //    // Cargar el archivo .rpt (ajusta la ruta según tu estructura)
+        //    string reportPath = Server.MapPath("~/pages/ReportViewer/CrystalReport1.rpt");
+        //    report.Load(reportPath);
+
+        //    // Obtener la lista de productos desde la capa de negocio
+        //    List<Product> products = _productService.GetProducts();
+
+        //    // Crear un DataSet y llenarlo con los datos obtenidos
+        //    ProductDataSet ds = new ProductDataSet();
+        //    foreach (var product in products)
+        //    {
+        //        ProductDataSet.productsRow row = ds.products.NewproductsRow();
+        //        row.id = product.Id.ToString();
+        //        row.name = product.Name;
+        //        row.stock = product.Stock.ToString();
+        //        row.price = product.Price.ToString();
+        //        row.isActive = product.IsActive.ToString();
+        //        ds.products.AddproductsRow(row);
+        //    }
+
+        //    // Asignar el DataSet al reporte
+        //    report.SetDataSource(ds);
+
+        //    // Exportar el reporte a un stream en formato PDF
+        //    Stream pdfStream = report.ExportToStream(ExportFormatType.PortableDocFormat);
+        //    pdfStream.Seek(0, SeekOrigin.Begin);
+
+
+        //    //            Stream pdfStream = report.ExportToStream(ExportFormatType.WordForWindows);
+        //    //              pdfStream.Seek(0, SeekOrigin.Begin);
+
+
+        //    // Configurar la respuesta HTTP para enviar el PDF
+        //    Response.Clear();
+        //    Response.Buffer = true;
+        //    Response.ContentType = "application/pdf";
+        //    // "inline" para visualizar en el navegador o "attachment" para forzar la descarga
+        //    Response.AddHeader("Content-Disposition", "inline; filename=ReporteProductos.pdf");
+        //    Response.BinaryWrite(ReadStreamFully(pdfStream));
+        //    Response.End();
+        //}
 
         // Método auxiliar para leer el stream completamente y convertirlo a byte[]
         private byte[] ReadStreamFully(Stream input)

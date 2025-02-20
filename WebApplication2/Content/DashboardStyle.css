@@ -20,3 +20,91 @@
     font-size: 14px !important; /* Reduce el tamaño del texto */
 }
 
+.pagination {
+    margin: 20px 0;
+}
+
+    .pagination > span, .pagination > a {
+        position: relative;
+        display: block;
+        padding: .5rem .75rem;
+        margin-left: -1px;
+        line-height: 1.25;
+        color: #007bff;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+    }
+
+        .pagination > span.current {
+            z-index: 1;
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .pagination > a:hover {
+            color: #0056b3;
+            text-decoration: none;
+            background-color: #e9ecef;
+            border-color: #dee2e6;
+        }
+
+
+table.minimalist-grid {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    background: #ffffff !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    margin-bottom: 1rem !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+}
+
+    table.minimalist-grid thead {
+        background-color: #f8f9fa !important;
+    }
+
+        table.minimalist-grid thead th {
+            padding: 12px !important;
+            font-weight: 600 !important;
+            text-align: left !important;
+            border-bottom: 2px solid #dee2e6 !important;
+        }
+
+    table.minimalist-grid tbody tr {
+        transition: background-color 0.3s !important;
+    }
+
+        table.minimalist-grid tbody tr:hover {
+            background-color: #f1f1f1 !important;
+        }
+
+        table.minimalist-grid tbody tr td {
+            padding: 12px !important;
+            border-bottom: 1px solid #dee2e6 !important;
+        }
+
+  
+    table.minimalist-grid .btn {
+        padding: 6px 12px !important;
+        font-size: 14px !important;
+        border-radius: 6px !important;
+    }
+
+/* Estilo para el paginador */
+.pagination {
+    display: flex !important;
+    justify-content: center !important;
+    padding: 10px 0 !important;
+}
+
+    .pagination .page-item .page-link {
+        color: #007bff !important;
+        border-radius: 5px !important;
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #007bff !important;
+        color: white !important;
+        border-color: #007bff !important;
+    }

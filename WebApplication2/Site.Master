@@ -11,6 +11,8 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="Content/Site.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    
 </head>
 <body>
     <form id="form1" runat="server">
@@ -26,28 +28,25 @@
             </div>
         </nav>
 
-<!-- Sidebar en Site.Master -->
-<div class="offcanvas offcanvas-start text-bg-dark vh-100" id="sidebar" aria-labelledby="sidebarLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="sidebarLabel">Menú</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body p-0">
-        <ul class="nav flex-column nav-pills">
-            <asp:ContentPlaceHolder ID="sidebarContent" runat="server">
-                <!-- Aquí se insertará el contenido de las páginas que usan este master -->
-            </asp:ContentPlaceHolder>
-        </ul>
-    </div>
-</div>
+        <!-- Sidebar en Site.Master -->
+        <div class="offcanvas offcanvas-start text-bg-dark vh-100" id="sidebar" aria-labelledby="sidebarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="sidebarLabel">Menú</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body p-0">
+                <ul class="nav flex-column nav-pills">
+                    <asp:ContentPlaceHolder ID="sidebarContent" runat="server">
+                        <!-- Aquí se insertará el contenido de las páginas que usan este master -->
+                    </asp:ContentPlaceHolder>
+                </ul>
+            </div>
+        </div>
 
-            <div class="container mt-5 pt-5">
-        <asp:ContentPlaceHolder ID="wtext" runat="server"></asp:ContentPlaceHolder>
-    </div>
+        <div class="container mt-5 pt-5">
+            <asp:ContentPlaceHolder ID="wtext" runat="server"></asp:ContentPlaceHolder>
+        </div>
     </form>
-
-    <!-- welcome text -->
-
 
     <!-- Footer -->
 
@@ -59,6 +58,25 @@
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/Scripts/bootstrap.js") %>
+    </asp:PlaceHolder>
+
+    <!-- Notificaciones - toast -->
+    <asp:PlaceHolder ID="phToast" runat="server">
+        <div class="toast-container p-3 bottom-0 end-0 ">
+            <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+                <div class="toast-header">
+                    <svg class="bd-placeholder-img rounded me-2" width="10" height="10" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <rect width="100%" height="100%" fill="#007aff"></rect></svg>
+                    <strong class="me-auto">Notificación</strong>
+                    <small>Hace 17 minutos</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Esto es una notificación.
+           
+                </div>
+            </div>
+        </div>
     </asp:PlaceHolder>
 
 </body>

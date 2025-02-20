@@ -19,9 +19,16 @@ namespace WebApplication2
             if (!IsPostBack)
             {
                 BindGrid(); // Cargar datos en el GridView
-
+                
+               
             }
         }
+            private void ContarRegistrosGridView()
+            {
+                lblTotalProductos.Text = "Total Productos: " + gvDashboard.Rows.Count.ToString();
+            }
+
+
         //en el caso de que existan valores de "sort" en el viewState, este se aplicara a los productos antes de enlazarlos con el viewGrid.
         private void BindGrid(string searchText = "")
         {
@@ -32,8 +39,16 @@ namespace WebApplication2
                 // Filtrar si hay texto de búsqueda
                 if (!string.IsNullOrEmpty(searchText))
                 {
-                    products = products.Where(p => p.Name.ToLower().Contains(searchText)).ToList();
+                    products = products.Where(p => p.Name.ToLower().Contains(searchText))
+                    .ToList();
                 }
+                // Contador de productos (actualizar si se filtra o no)
+                lblTotalProductos.Text = "Total Productos: " + products.Count;
+
+                // Calcular la suma total de precios (suponiendo que Product.Price es decimal)
+                decimal totalDinero = products.Sum(p => p.Price);
+                // Formatear el resultado como moneda (esto depende de la cultura, "C" usa la cultura actual)
+                lblTotalDinero.Text = "Total Dinero: " + totalDinero.ToString("C");
 
                 // Si se ha definido un ordenamiento, aplícalo
                 if (ViewState["SortExpression"] != null && ViewState["SortDirection"] != null)
@@ -93,8 +108,10 @@ namespace WebApplication2
         }
         protected void btnPrint_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/pages/Reports/ReportViewer.aspx");
+            string searchText = txtSearch.Text.Trim();
+            Response.Redirect("~/pages/Reports/ReportViewer.aspx?search=" + Server.UrlEncode(searchText));
         }
+
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -171,6 +188,7 @@ namespace WebApplication2
 
                 // Llamar a BindGrid después de que el producto se haya insertado con éxito
                 BindGrid();
+                Session["ShowToast"] = "false";
                 Response.Redirect(Request.Url.ToString(), true);
                 // Cerrar el modal después de guardar
                 pnlAddProduct.Visible = false;
@@ -180,6 +198,7 @@ namespace WebApplication2
                 Response.Write($"<script>alert('Error al insertar el producto: {ex.Message}');</script>");
                 return;
             }
+            
         }
 
         // Actualizar un producto (evento del GridView)

@@ -17,9 +17,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <link href="../../Content/DashboardStyle.css" rel="stylesheet" />
-
-
-
     <!-- Agregar producto button -->
     <div class="container mt-2">
 
@@ -51,11 +48,10 @@
         </div>
     </div>
     <!-- GridView Dashboard -->
-    <asp:GridView ID="gvDashboard" runat="server"
-        CssClass="table table-striped table-hover"
+    <asp:GridView ID="gvDashboard" runat="server" colspan="4"
+        CssClass="table table-striped table-hover minimalist-grid"
         AutoGenerateColumns="False"
-        EmptyDataText="No data available."
-        BorderStyle="Ridge"
+        EmptyDataText="No hay datos que coincidan con la busqueda"
         DataKeyNames="id"
         AllowSorting="true"
         AllowPaging="true"
@@ -65,7 +61,18 @@
         OnRowUpdating="gvDashboard_RowUpdating"
         OnRowCancelingEdit="gvDashboard_RowCancelingEdit"
         OnRowDeleting="gvDashboard_RowDeleting"
-        OnSorting="gvDashboard_Sorting">
+        OnSorting="gvDashboard_Sorting"
+        PagerStyle-BorderStyle="None"
+        PagerStyle-HorizontalAlign="Center"
+        PagerSettings-Mode="NumericFirstLast"
+        PagerSettings-Position="Bottom"
+        PagerSettings-FirstPageText="&laquo;"
+        PagerSettings-LastPageText="&raquo;"
+        PagerSettings-PageButtonCount="25">
+        <PagerSettings Mode="NumericFirstLast"
+            FirstPageText="&laquo;"
+            LastPageText="&raquo;"
+            PageButtonCount="25" />
         <Columns>
             <asp:BoundField DataField="id" HeaderText="ID" ReadOnly="True" SortExpression="id" />
             <asp:TemplateField HeaderText="Nombre" SortExpression="name">
@@ -73,7 +80,14 @@
                     <%# Eval("Name") %>
                 </ItemTemplate>
                 <EditItemTemplate>
-                    <asp:TextBox ID="txtNombre" runat="server" Text='<%# Bind("Name") %>'></asp:TextBox>
+                    <asp:TextBox
+                        ID="txtNombre"
+                        runat="server"
+                        CssClass="form-control"
+                        onkeyup="this.value = this.value.toUpperCase();"
+                        Style="text-transform: uppercase;"
+                        Text='<%# Bind("Name") %>'>
+                    </asp:TextBox>
                 </EditItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Stock" SortExpression="stock">
@@ -112,10 +126,12 @@
                     <asp:LinkButton ID="btnCancelEdit" runat="server" CommandName="Cancel" Text="Cancelar" CssClass="btn btn-outline-primary" />
                 </EditItemTemplate>
             </asp:TemplateField>
-
-
         </Columns>
     </asp:GridView>
+    <!-- contador de productos -->
+    <asp:Label ID="lblTotalDinero" runat="server" CssClass="badge badge-light p-2 float-end"></asp:Label>
+    <asp:Label ID="lblTotalProductos" runat="server" CssClass="badge badge-light p-2 float-end" Style="margin-right: 10px;"></asp:Label>
+
     <asp:HiddenField ID="hdnProductId" runat="server" />
     <%--
     <nav aria-label="Page navigation">
@@ -145,12 +161,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Agregar Nuevo Producto</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <button type="button" class="close" data-dismiss="modal"     aria-label="Cerrar" >
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
-
                 <div class="modal-body">
                     <!-- Grupo de controles para Nombre -->
                     <div class="form-group">
@@ -170,15 +184,15 @@
                 </div>
                 <div class="modal-footer">
                     <asp:Button ID="btnSaveProduct" runat="server" Text="Guardar" CssClass="btn btn-success" OnClick="btnSaveProduct_Click" />
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CssClass="btn btn-secondary"
-                        OnClientClick="$('#pnlAddProduct').modal('hide'); return false;" />
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CssClass="btn btn-secondary" data-dismiss="modal" 
 
+                        OnClientClick="$('#pnlAddProduct').modal('hide'); return false;" />
                 </div>
             </div>
         </div>
     </asp:Panel>
 
-   
+
     <!-- Confirmation panel -->
     <asp:Panel ID="pnlConfirmation" runat="server" CssClass="modal fade" Role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -221,11 +235,19 @@
         function confirmDelete(productId, productName) {
             // Asigna el ID del producto al HiddenField
             document.getElementById('<%= hdnProductId.ClientID %>').value = productId;
-                // Actualiza el mensaje de confirmación con el nombre del producto
-                document.getElementById('pConfirmationMessage').innerText = "¿Deseas eliminar el producto '" + productName + "'?";
-                // Abre el modal de confirmación
-                $('#<%= pnlConfirmation.ClientID %>').modal('show');
+            // Actualiza el mensaje de confirmación con el nombre del producto
+            document.getElementById('pConfirmationMessage').innerText = "¿Deseas eliminar el producto '" + productName + "'?";
+            // Abre el modal de confirmación
+            $('#<%= pnlConfirmation.ClientID %>').modal('show');
         }
-        </script>
-
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Vincula el evento keyup al TextBox, utilizando su ClientID
+            $('#<%= txtNombre.ClientID %>').on('keyup', function () {
+                // Convierte el valor a mayúsculas y lo asigna al input
+                $(this).val($(this).val().toUpperCase());
+            });
+        });
+    </script>
 </asp:Content>

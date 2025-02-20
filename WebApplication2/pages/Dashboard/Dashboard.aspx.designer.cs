@@ -60,6 +60,24 @@ namespace WebApplication2
         protected global::System.Web.UI.WebControls.GridView gvDashboard;
 
         /// <summary>
+        /// Control lblTotalDinero.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalDinero;
+
+        /// <summary>
+        /// Control lblTotalProductos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalProductos;
+
+        /// <summary>
         /// Control hdnProductId.
         /// </summary>
         /// <remarks>

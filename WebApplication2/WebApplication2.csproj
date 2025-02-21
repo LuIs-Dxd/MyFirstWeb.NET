@@ -172,6 +172,7 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="pages\Changelog-page\Changelog-page.aspx" />
     <Content Include="pages\Dashboard\Dashboard.aspx" />
     <Content Include="pages\Inventory\Inventory.aspx" />
     <Content Include="pages\Reports\ReportViewer.aspx" />
@@ -259,6 +260,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Changelog-page\Changelog-page.aspx.cs">
+      <DependentUpon>Changelog-page.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Changelog-page\Changelog-page.aspx.designer.cs">
+      <DependentUpon>Changelog-page.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\Dashboard\Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>

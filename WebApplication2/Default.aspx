@@ -16,6 +16,11 @@
             <i class="bi bi-gear"></i> Settings
         </asp:HyperLink>
     </li>
+        <li class="nav-item">
+        <asp:HyperLink runat="server" CssClass="nav-link text-white" NavigateUrl="#">
+            <i class="bi bi-gear"></i> Changelog
+        </asp:HyperLink>
+    </li>
 </asp:Content>
 
 

@@ -81,6 +81,7 @@ namespace WebApplication2
 
                 gvDashboard.DataSource = products;
                 gvDashboard.DataBind();
+                BindPagination();
             }
             catch (Exception ex)
             {
@@ -95,8 +96,14 @@ namespace WebApplication2
             gvDashboard.PageIndex = e.NewPageIndex;
             BindGrid();     
         }
+        protected void ChangePage(int newPageIndex)
+        {
+            // Asegúrate de validar que newPageIndex esté en el rango permitido
+            gvDashboard.PageIndex = newPageIndex;
+            BindGrid(); // Tu método para enlazar el GridView con el DataSource
+        }
 
-        
+
         protected int GetMaxID()
         {
             List<Product> products = _productService.GetProducts();
@@ -287,6 +294,28 @@ namespace WebApplication2
                 }
             }
         }
+        //obtenemos el # de paginas
+        public class PageNumber
+        {
+            public int PageIndex { get; set; }
+            public string PageDisplay { get; set; }
+        }
+
+        private void BindPagination()
+        {
+            int pageCount = gvDashboard.PageCount;
+            List<PageNumber> pages = new List<PageNumber>();
+
+            for (int i = 0; i < pageCount; i++)
+            {
+                pages.Add(new PageNumber { PageIndex = i, PageDisplay = (i + 1).ToString() });
+            }
+
+            rptPages.DataSource = pages;
+            rptPages.DataBind();
+        }
+
+
         protected void gvDashboard_Sorting(object sender, GridViewSortEventArgs e)
         {
             // Guarda el índice de página actual
@@ -376,5 +405,16 @@ namespace WebApplication2
             gvDashboard.EditIndex = -1;
             BindGrid();
         }
+        //Data bound para sacar ocultar el pagenavigation integrado en la grid
+        protected void gvDashboard_DataBound(object sender, EventArgs e)
+        {
+            if (gvDashboard.BottomPagerRow != null)
+            {
+                gvDashboard.BottomPagerRow.Visible = false;
+            }
+        }
+
+
     }
+
 }

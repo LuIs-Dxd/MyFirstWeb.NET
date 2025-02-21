@@ -1,21 +1,33 @@
 ﻿<%@ Page Title="Dashboard" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="WebApplication2.Dashboard" %>
 
 <asp:Content ID="sidebarPlaceholder" ContentPlaceHolderID="sidebarContent" runat="server">
-    <li class="nav-item">
-        <a class="nav-link text-white" href="Dashboard.aspx"><i class="bi bi-house-door"></i>Dashboard</a>
+        <li class="nav-item">
+        <asp:HyperLink runat="server" CssClass="nav-link active" NavigateUrl="~/pages/Dashboard/Dashboard.aspx">
+            <i class="bi bi-speedometer2"></i> Dashboard
+        </asp:HyperLink>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-white" href="#"><i class="bi bi-box-seam"></i>Inventory</a>
+        <asp:HyperLink runat="server" CssClass="nav-link text-white" NavigateUrl="#">
+            <i class="bi bi-bar-chart"></i> Reports
+        </asp:HyperLink>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-white" href="#"><i class="bi bi-clipboard-data"></i>Reports</a>
+        <asp:HyperLink runat="server" CssClass="nav-link text-white" NavigateUrl="#">
+            <i class="bi bi-gear"></i> Settings
+        </asp:HyperLink>
+    </li>
+        <li class="nav-item">
+        <asp:HyperLink runat="server" CssClass="nav-link text-white" NavigateUrl="#">
+            <i class="bi bi-gear"></i> Changelog
+        </asp:HyperLink>
     </li>
 </asp:Content>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="wtext" runat="server">
     <!-- Enlace a Bootstrap desde CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+
     <link href="../../Content/DashboardStyle.css" rel="stylesheet" />
     <!-- Agregar producto button -->
     <div class="container mt-2">
@@ -48,14 +60,15 @@
         </div>
     </div>
     <!-- GridView Dashboard -->
-    <asp:GridView ID="gvDashboard" runat="server" colspan="4"
+    <asp:GridView ID="gvDashboard" runat="server" colspan="4" OnDataBound="gvDashboard_DataBound"
         CssClass="table table-striped table-hover minimalist-grid"
         AutoGenerateColumns="False"
         EmptyDataText="No hay datos que coincidan con la busqueda"
         DataKeyNames="id"
         AllowSorting="true"
         AllowPaging="true"
-        PageSize="12"
+        PageSize="10"
+        PagerStyle-Visible="false"
         OnPageIndexChanging="gvDashboard_PageIndexChanging"
         OnRowEditing="gvDashboard_RowEditing"
         OnRowUpdating="gvDashboard_RowUpdating"
@@ -133,6 +146,33 @@
     <asp:Label ID="lblTotalProductos" runat="server" CssClass="badge badge-light p-2 float-end" Style="margin-right: 10px;"></asp:Label>
 
     <asp:HiddenField ID="hdnProductId" runat="server" />
+
+<nav aria-label="Page navigation">
+    <ul class="pagination pagination-minimal justify-content-center">
+        <!-- Botón "Anterior" -->
+        <li class="page-item">
+            <a class="page-link" href="#" onclick="changePage('<%= gvDashboard.PageIndex - 1 %>'); return false;">Anterior</a>
+        </li>
+        
+        <!-- Repeater para generar las páginas -->
+        <asp:Repeater ID="rptPages" runat="server">
+            <ItemTemplate>
+                <li class="page-item <%# Convert.ToInt32(Eval("PageIndex")) == gvDashboard.PageIndex ? "active" : "" %>">
+                    <a class="page-link" href="#" onclick="changePage('<%# Eval("PageIndex") %>'); return false;">
+                        <%# Eval("PageDisplay") %>
+                    </a>
+                </li>
+            </ItemTemplate>
+        </asp:Repeater>
+        
+        <!-- Botón "Siguiente" -->
+        <li class="page-item">
+            <a class="page-link" href="#" onclick="changePage('<%= gvDashboard.PageIndex + 1 %>'); return false;">Siguiente</a>
+        </li>
+    </ul>
+</nav>
+
+
     <%--
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
@@ -223,7 +263,8 @@
 
     <!-- Scripts de jQuery y Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 
     <!-- Bootstrap  -->
 
@@ -250,4 +291,14 @@
             });
         });
     </script>
+
+<%--    <script type="text/javascript">
+        function changePage(pageIndex) {
+            // Asigna el nuevo índice en un HiddenField o usa __doPostBack para enviar el valor al servidor.
+            // Por ejemplo, si usas un HiddenField:
+            document.getElementById('<%= hdnPageIndex.ClientID %>').value = pageIndex;
+            __doPostBack('ChangePage', '');
+        }
+</script>--%>
+
 </asp:Content>
